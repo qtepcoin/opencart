@@ -39,7 +39,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			$product_total = 0;
 
 			foreach ($products as $product_2) {
-				if ($product_2['product_id'] == $product['product_id']) {
+				if ($product_2['extension_id'] == $product['extension_id']) {
 					$product_total += $product_2['quantity'];
 				}
 			}
@@ -343,7 +343,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				'quantity'  => $product['quantity'],
 				'price'     => $price,
 				'total'     => $total,
-				'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+				'href'      => $this->url->link('product/product', 'extension_id=' . $product['extension_id'])
 			);
 		}
 
@@ -962,7 +962,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 				$product_total = 0;
 
 				foreach ($products as $product_2) {
-					if ($product_2['product_id'] == $product['product_id']) {
+					if ($product_2['extension_id'] == $product['extension_id']) {
 						$product_total += $product_2['quantity'];
 					}
 				}
@@ -1551,7 +1551,7 @@ class ControllerExtensionPaymentKlarnaCheckout extends Controller {
 			}
 
 			$order_data['products'][] = array(
-				'product_id' => $product['product_id'],
+				'extension_id' => $product['extension_id'],
 				'name'       => $product['name'],
 				'model'      => $product['model'],
 				'option'     => $option_data,

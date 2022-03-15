@@ -313,8 +313,8 @@ class ControllerAccountReturn extends Controller {
 
 		$this->load->model('catalog/product');
 
-		if (isset($this->request->get['product_id'])) {
-			$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
+		if (isset($this->request->get['extension_id'])) {
+			$product_info = $this->model_catalog_product->getProduct($this->request->get['extension_id']);
 		}
 
 		if (isset($this->request->post['order_id'])) {
@@ -325,12 +325,12 @@ class ControllerAccountReturn extends Controller {
 			$data['order_id'] = '';
 		}
 
-		if (isset($this->request->post['product_id'])) {
-			$data['product_id'] = $this->request->post['product_id'];
+		if (isset($this->request->post['extension_id'])) {
+			$data['extension_id'] = $this->request->post['extension_id'];
 		} elseif (!empty($product_info)) {
-			$data['product_id'] = $product_info['product_id'];
+			$data['extension_id'] = $product_info['extension_id'];
 		} else {
-			$data['product_id'] = '';
+			$data['extension_id'] = '';
 		}
 
 		if (isset($this->request->post['date_ordered'])) {

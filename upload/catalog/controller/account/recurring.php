@@ -166,7 +166,7 @@ class ControllerAccountRecurring extends Controller {
 			}
 
 			$data['order'] = $this->url->link('account/order/info', 'order_id=' . $recurring_info['order_id'], true);
-			$data['product'] = $this->url->link('product/product', 'product_id=' . $recurring_info['product_id'], true);
+			$data['product'] = $this->url->link('product/product', 'extension_id=' . $recurring_info['extension_id'], true);
 
 			$data['recurring'] = $this->load->controller('extension/recurring/' . $recurring_info['payment_code']);
 

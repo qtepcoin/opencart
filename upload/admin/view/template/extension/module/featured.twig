@@ -40,8 +40,8 @@
               <input type="text" name="product_name" value="" placeholder="{{ entry_product }}" id="input-product" class="form-control" />
               <div id="featured-product" class="well well-sm" style="height: 150px; overflow: auto;">
                 {% for product in products %}
-                <div id="featured-product{{ product.product_id }}"><i class="fa fa-minus-circle"></i> {{ product.name }}
-                  <input type="hidden" name="product[]" value="{{ product.product_id }}" />
+                <div id="featured-product{{ product.extension_id }}"><i class="fa fa-minus-circle"></i> {{ product.name }}
+                  <input type="hidden" name="product[]" value="{{ product.extension_id }}" />
                 </div>
                 {% endfor %}
               </div>
@@ -99,7 +99,7 @@ $('input[name=\'product_name\']').autocomplete({
 				response($.map(json, function(item) {
 					return {
 						label: item['name'],
-						value: item['product_id']
+						value: item['extension_id']
 					}
 				}));
 			}

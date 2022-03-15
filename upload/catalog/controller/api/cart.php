@@ -18,7 +18,7 @@ class ControllerApiCart extends Controller {
 						$option = array();
 					}
 
-					$this->cart->add($product['product_id'], $product['quantity'], $option);
+					$this->cart->add($product['extension_id'], $product['quantity'], $option);
 				}
 
 				$json['success'] = $this->language->get('text_success');
@@ -27,10 +27,10 @@ class ControllerApiCart extends Controller {
 				unset($this->session->data['shipping_methods']);
 				unset($this->session->data['payment_method']);
 				unset($this->session->data['payment_methods']);
-			} elseif (isset($this->request->post['product_id'])) {
+			} elseif (isset($this->request->post['extension_id'])) {
 				$this->load->model('catalog/product');
 
-				$product_info = $this->model_catalog_product->getProduct($this->request->post['product_id']);
+				$product_info = $this->model_catalog_product->getProduct($this->request->post['extension_id']);
 
 				if ($product_info) {
 					if (isset($this->request->post['quantity'])) {
@@ -45,7 +45,7 @@ class ControllerApiCart extends Controller {
 						$option = array();
 					}
 
-					$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
+					$product_options = $this->model_catalog_product->getProductOptions($this->request->post['extension_id']);
 
 					foreach ($product_options as $product_option) {
 						if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
@@ -54,7 +54,7 @@ class ControllerApiCart extends Controller {
 					}
 
 					if (!isset($json['error']['option'])) {
-						$this->cart->add($this->request->post['product_id'], $quantity, $option);
+						$this->cart->add($this->request->post['extension_id'], $quantity, $option);
 
 						$json['success'] = $this->language->get('text_success');
 
@@ -146,7 +146,7 @@ class ControllerApiCart extends Controller {
 				$product_total = 0;
 
 				foreach ($products as $product_2) {
-					if ($product_2['product_id'] == $product['product_id']) {
+					if ($product_2['extension_id'] == $product['extension_id']) {
 						$product_total += $product_2['quantity'];
 					}
 				}
@@ -169,7 +169,7 @@ class ControllerApiCart extends Controller {
 
 				$json['products'][] = array(
 					'cart_id'    => $product['cart_id'],
-					'product_id' => $product['product_id'],
+					'extension_id' => $product['extension_id'],
 					'name'       => $product['name'],
 					'model'      => $product['model'],
 					'option'     => $option_data,

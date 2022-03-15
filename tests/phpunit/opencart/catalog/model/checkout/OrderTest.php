@@ -79,7 +79,7 @@ class CatalogModelCheckoutOrderTest extends OpenCartTest {
 			'shipping_code' => '',
 			'products' => array(
 				array(
-					'product_id' => 0,
+					'extension_id' => 0,
 					'name' => '',
 					'model' => '',
 					'quantity' => 0,

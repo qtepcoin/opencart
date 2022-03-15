@@ -158,10 +158,10 @@
                   {% if products %}
                   {% for product in products %}
                   <tr>
-                    <td class="text-center">{% if product.product_id in selected %}
-                      <input type="checkbox" name="selected[]" value="{{ product.product_id }}" checked="checked" />
+                    <td class="text-center">{% if product.extension_id in selected %}
+                      <input type="checkbox" name="selected[]" value="{{ product.extension_id }}" checked="checked" />
                       {% else %}
-                      <input type="checkbox" name="selected[]" value="{{ product.product_id }}" />
+                      <input type="checkbox" name="selected[]" value="{{ product.extension_id }}" />
                       {% endif %}</td>
                     <td class="text-center">{% if product.image %} <img src="{{ product.image }}" alt="{{ product.name }}" class="img-thumbnail" /> {% else %} <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span> {% endif %}</td>
                     <td class="text-left">{{ product.name }}</td>
@@ -247,7 +247,7 @@ $('input[name=\'filter_name\']').autocomplete({
 				response($.map(json, function(item) {
 					return {
 						label: item['name'],
-						value: item['product_id']
+						value: item['extension_id']
 					}
 				}));
 			}
@@ -267,7 +267,7 @@ $('input[name=\'filter_model\']').autocomplete({
 				response($.map(json, function(item) {
 					return {
 						label: item['model'],
-						value: item['product_id']
+						value: item['extension_id']
 					}
 				}));
 			}

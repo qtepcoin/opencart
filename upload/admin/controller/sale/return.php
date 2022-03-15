@@ -724,12 +724,12 @@ class ControllerSaleReturn extends Controller {
 			$data['product'] = '';
 		}
 
-		if (isset($this->request->post['product_id'])) {
-			$data['product_id'] = $this->request->post['product_id'];
+		if (isset($this->request->post['extension_id'])) {
+			$data['extension_id'] = $this->request->post['extension_id'];
 		} elseif (!empty($return_info)) {
-			$data['product_id'] = $return_info['product_id'];
+			$data['extension_id'] = $return_info['extension_id'];
 		} else {
-			$data['product_id'] = '';
+			$data['extension_id'] = '';
 		}
 
 		if (isset($this->request->post['model'])) {

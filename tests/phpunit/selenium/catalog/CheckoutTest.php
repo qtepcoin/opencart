@@ -50,10 +50,10 @@ class CatalogCheckoutTest extends OpenCartSeleniumTest {
 	}
 	
 	private function addProductsToCart() {
-		$this->url('index.php?route=product/product&product_id=43');
+		$this->url('index.php?route=product/product&extension_id=43');
 		$this->byId('button-cart')->click();
 		
-		$this->url('index.php?route=product/product&product_id=46');
+		$this->url('index.php?route=product/product&extension_id=46');
 		$this->byId('input-quantity')->clear();
 		$this->clickOnElement('input-quantity');
 		$this->keys('3');

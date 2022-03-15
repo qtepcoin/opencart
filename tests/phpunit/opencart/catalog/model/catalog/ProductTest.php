@@ -11,7 +11,7 @@ class CatalogModelCatalogProductTest extends OpenCartTest {
 	
 	public function testGetProduct() {		
 		$product = array(
-			'product_id' => 28,
+			'extension_id' => 28,
 			'name' => 'HTC Touch HD',
 			'model' => 'Product 1',
 			'quantity' => 939,
@@ -22,7 +22,7 @@ class CatalogModelCatalogProductTest extends OpenCartTest {
 			'price' => '100.00',
 		);
 		
-		$result = $this->model_catalog_product->getProduct($product['product_id']);
+		$result = $this->model_catalog_product->getProduct($product['extension_id']);
 		
 		$this->assertNotFalse($result, 'Could not retrieve product');
 		
@@ -40,18 +40,18 @@ class CatalogModelCatalogProductTest extends OpenCartTest {
 	public function testAvailableDate() {
 		$product = $this->model_catalog_product->getProduct(28);
 		
-		$this->db->query("UPDATE " . DB_PREFIX . "product SET date_available = '9999-12-30' WHERE product_id = 28");
+		$this->db->query("UPDATE " . DB_PREFIX . "product SET date_available = '9999-12-30' WHERE extension_id = 28");
 		
 		$result = $this->model_catalog_product->getProduct(28);
 		
-		$this->db->query("UPDATE " . DB_PREFIX . "product SET date_available = '" . $product['date_available'] . "' WHERE product_id = 28");
+		$this->db->query("UPDATE " . DB_PREFIX . "product SET date_available = '" . $product['date_available'] . "' WHERE extension_id = 28");
 		
 		$this->assertFalse($result);
 	}
 	
 	public function testProductViewed() {
 		$product = $this->model_catalog_product->getProduct(28);
-		$this->model_catalog_product->updateViewed($product['product_id']);
+		$this->model_catalog_product->updateViewed($product['extension_id']);
 		
 		$product2 = $this->model_catalog_product->getProduct(28);
 		

@@ -52,7 +52,7 @@ class ControllerExtensionPaymentTwoCheckout extends Controller {
 
 		foreach ($products as $product) {
 			$data['products'][] = array(
-				'product_id'  => $product['product_id'],
+				'extension_id'  => $product['extension_id'],
 				'name'        => $product['name'],
 				'description' => $product['name'],
 				'quantity'    => $product['quantity'],

@@ -93,7 +93,7 @@ class CatalogModelAccountOrderTest extends OpenCartTest {
 			'shipping_code' => '',
 			'products' => array(
 				array(
-					'product_id' => 0,
+					'extension_id' => 0,
 					'name' => '',
 					'model' => '',
 					'quantity' => 0,
@@ -191,7 +191,7 @@ class CatalogModelAccountOrderTest extends OpenCartTest {
 		$products = $this->model_account_order->getOrderProducts($orderId);
 		$this->assertCount(1, $products);
 		
-		$product = $this->model_account_order->getOrderProduct($orderId, $products[0]['order_product_id']);
+		$product = $this->model_account_order->getOrderProduct($orderId, $products[0]['order_extension_id']);
 		$this->assertNotEmpty($product);
 	}
 	
@@ -201,10 +201,10 @@ class CatalogModelAccountOrderTest extends OpenCartTest {
 		$products = $this->model_account_order->getOrderProducts($orderId);
 		$this->assertCount(1, $products);
 		
-		$product = $this->model_account_order->getOrderProduct($orderId, $products[0]['order_product_id']);
+		$product = $this->model_account_order->getOrderProduct($orderId, $products[0]['order_extension_id']);
 		$this->assertNotEmpty($product);
 		
-		$options = $this->model_account_order->getOrderOptions($orderId, $product['order_product_id']);
+		$options = $this->model_account_order->getOrderOptions($orderId, $product['order_extension_id']);
 		$this->assertNotEmpty($options);
 	}
 	

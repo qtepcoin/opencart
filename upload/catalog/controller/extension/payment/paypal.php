@@ -203,7 +203,7 @@ class ControllerExtensionPaymentPayPal extends Controller {
 			$item_info[] = array(
 				'name' => $product['name'],
 				'sku' => $product['model'],
-				'url' => $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
+				'url' => $this->url->link('product/product', 'extension_id=' . $product['extension_id'], true),
 				'quantity' => $product['quantity'],
 				'unit_amount' => array(
 					'currency_code' => $currency_code,

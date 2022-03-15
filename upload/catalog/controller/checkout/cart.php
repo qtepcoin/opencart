@@ -61,7 +61,7 @@ class ControllerCheckoutCart extends Controller {
 				$product_total = 0;
 
 				foreach ($products as $product_2) {
-					if ($product_2['product_id'] == $product['product_id']) {
+					if ($product_2['extension_id'] == $product['extension_id']) {
 						$product_total += $product_2['quantity'];
 					}
 				}
@@ -142,7 +142,7 @@ class ControllerCheckoutCart extends Controller {
 					'reward'    => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
 					'price'     => $price,
 					'total'     => $total,
-					'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+					'href'      => $this->url->link('product/product', 'extension_id=' . $product['extension_id'])
 				);
 			}
 
@@ -264,15 +264,15 @@ class ControllerCheckoutCart extends Controller {
 
 		$json = array();
 
-		if (isset($this->request->post['product_id'])) {
-			$product_id = (int)$this->request->post['product_id'];
+		if (isset($this->request->post['extension_id'])) {
+			$extension_id = (int)$this->request->post['extension_id'];
 		} else {
-			$product_id = 0;
+			$extension_id = 0;
 		}
 
 		$this->load->model('catalog/product');
 
-		$product_info = $this->model_catalog_product->getProduct($product_id);
+		$product_info = $this->model_catalog_product->getProduct($extension_id);
 
 		if ($product_info) {
 			if (isset($this->request->post['quantity'])) {
@@ -287,7 +287,7 @@ class ControllerCheckoutCart extends Controller {
 				$option = array();
 			}
 
-			$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
+			$product_options = $this->model_catalog_product->getProductOptions($this->request->post['extension_id']);
 
 			foreach ($product_options as $product_option) {
 				if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
@@ -301,7 +301,7 @@ class ControllerCheckoutCart extends Controller {
 				$recurring_id = 0;
 			}
 
-			$recurrings = $this->model_catalog_product->getProfiles($product_info['product_id']);
+			$recurrings = $this->model_catalog_product->getProfiles($product_info['extension_id']);
 
 			if ($recurrings) {
 				$recurring_ids = array();
@@ -316,9 +316,9 @@ class ControllerCheckoutCart extends Controller {
 			}
 
 			if (!$json) {
-				$this->cart->add($this->request->post['product_id'], $quantity, $option, $recurring_id);
+				$this->cart->add($this->request->post['extension_id'], $quantity, $option, $recurring_id);
 
-				$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
+				$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'extension_id=' . $this->request->post['extension_id']), $product_info['name'], $this->url->link('checkout/cart'));
 
 				// Unset all shipping and payment methods
 				unset($this->session->data['shipping_method']);
@@ -372,7 +372,7 @@ class ControllerCheckoutCart extends Controller {
 
 				$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
 			} else {
-				$json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
+				$json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'extension_id=' . $this->request->post['extension_id']));
 			}
 		}
 

@@ -243,7 +243,7 @@ class ControllerAccountOrder extends Controller {
 			foreach ($products as $product) {
 				$option_data = array();
 
-				$options = $this->model_account_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
+				$options = $this->model_account_order->getOrderOptions($this->request->get['order_id'], $product['order_extension_id']);
 
 				foreach ($options as $option) {
 					if ($option['type'] != 'file') {
@@ -264,10 +264,10 @@ class ControllerAccountOrder extends Controller {
 					);
 				}
 
-				$product_info = $this->model_catalog_product->getProduct($product['product_id']);
+				$product_info = $this->model_catalog_product->getProduct($product['extension_id']);
 
 				if ($product_info) {
-					$reorder = $this->url->link('account/order/reorder', 'order_id=' . $order_id . '&order_product_id=' . $product['order_product_id'], true);
+					$reorder = $this->url->link('account/order/reorder', 'order_id=' . $order_id . '&order_extension_id=' . $product['order_extension_id'], true);
 				} else {
 					$reorder = '';
 				}
@@ -280,7 +280,7 @@ class ControllerAccountOrder extends Controller {
 					'price'    => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'total'    => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'reorder'  => $reorder,
-					'return'   => $this->url->link('account/return/add', 'order_id=' . $order_info['order_id'] . '&product_id=' . $product['product_id'], true)
+					'return'   => $this->url->link('account/return/add', 'order_id=' . $order_info['order_id'] . '&extension_id=' . $product['extension_id'], true)
 				);
 			}
 
@@ -352,23 +352,23 @@ class ControllerAccountOrder extends Controller {
 		$order_info = $this->model_account_order->getOrder($order_id);
 
 		if ($order_info) {
-			if (isset($this->request->get['order_product_id'])) {
-				$order_product_id = $this->request->get['order_product_id'];
+			if (isset($this->request->get['order_extension_id'])) {
+				$order_extension_id = $this->request->get['order_extension_id'];
 			} else {
-				$order_product_id = 0;
+				$order_extension_id = 0;
 			}
 
-			$order_product_info = $this->model_account_order->getOrderProduct($order_id, $order_product_id);
+			$order_product_info = $this->model_account_order->getOrderProduct($order_id, $order_extension_id);
 
 			if ($order_product_info) {
 				$this->load->model('catalog/product');
 
-				$product_info = $this->model_catalog_product->getProduct($order_product_info['product_id']);
+				$product_info = $this->model_catalog_product->getProduct($order_product_info['extension_id']);
 
 				if ($product_info) {
 					$option_data = array();
 
-					$order_options = $this->model_account_order->getOrderOptions($order_product_info['order_id'], $order_product_id);
+					$order_options = $this->model_account_order->getOrderOptions($order_product_info['order_id'], $order_extension_id);
 
 					foreach ($order_options as $order_option) {
 						if ($order_option['type'] == 'select' || $order_option['type'] == 'radio' || $order_option['type'] == 'image') {
@@ -382,9 +382,9 @@ class ControllerAccountOrder extends Controller {
 						}
 					}
 
-					$this->cart->add($order_product_info['product_id'], $order_product_info['quantity'], $option_data);
+					$this->cart->add($order_product_info['extension_id'], $order_product_info['quantity'], $option_data);
 
-					$this->session->data['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $product_info['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
+					$this->session->data['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'extension_id=' . $product_info['extension_id']), $product_info['name'], $this->url->link('checkout/cart'));
 
 					unset($this->session->data['shipping_method']);
 					unset($this->session->data['shipping_methods']);

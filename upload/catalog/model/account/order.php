@@ -114,8 +114,8 @@ class ModelAccountOrder extends Model {
 		return $query->rows;
 	}
 
-	public function getOrderProduct($order_id, $order_product_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$order_product_id . "'");
+	public function getOrderProduct($order_id, $order_extension_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_product WHERE order_id = '" . (int)$order_id . "' AND order_extension_id = '" . (int)$order_extension_id . "'");
 
 		return $query->row;
 	}
@@ -126,8 +126,8 @@ class ModelAccountOrder extends Model {
 		return $query->rows;
 	}
 
-	public function getOrderOptions($order_id, $order_product_id) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_product_id = '" . (int)$order_product_id . "'");
+	public function getOrderOptions($order_id, $order_extension_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "order_option WHERE order_id = '" . (int)$order_id . "' AND order_extension_id = '" . (int)$order_extension_id . "'");
 
 		return $query->rows;
 	}

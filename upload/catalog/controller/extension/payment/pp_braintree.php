@@ -844,7 +844,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$product_total = 0;
 
 			foreach ($products as $product_2) {
-				if ($product_2['product_id'] == $product['product_id']) {
+				if ($product_2['extension_id'] == $product['extension_id']) {
 					$product_total += $product_2['quantity'];
 				}
 			}
@@ -902,7 +902,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				'reward'                => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
 				'price'                 => $price,
 				'total'                 => $total,
-				'href'                  => $this->url->link('product/product', 'product_id=' . $product['product_id']),
+				'href'                  => $this->url->link('product/product', 'extension_id=' . $product['extension_id']),
 				'remove'                => $this->url->link('checkout/cart', 'remove=' . $product['cart_id']),
 			);
 		}
@@ -1180,7 +1180,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 			$product_total = 0;
 
 			foreach ($products as $product_2) {
-				if ($product_2['product_id'] == $product['product_id']) {
+				if ($product_2['extension_id'] == $product['extension_id']) {
 					$product_total += $product_2['quantity'];
 				}
 			}
@@ -1360,7 +1360,7 @@ class ControllerExtensionPaymentPPBraintree extends Controller {
 				}
 
 				$product_data[] = array(
-					'product_id' => $product['product_id'],
+					'extension_id' => $product['extension_id'],
 					'name'       => $product['name'],
 					'model'      => $product['model'],
 					'option'     => $option_data,

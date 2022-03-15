@@ -25,7 +25,7 @@ class CatalogModelAccountDownloadTest extends OpenCartTest {
 		$this->db->query("INSERT INTO ". DB_PREFIX . "download SET filename = '', mask = '', date_added = '1970-01-01 00:00:00'");
 		$downloadId = $this->db->getLastId();
 		$this->db->query("INSERT INTO " . DB_PREFIX . "download_description SET download_id = $downloadId, language_id = 1, `name` = ''");
-		$this->db->query("INSERT INTO " . DB_PREFIX . "product_to_download SET product_id = 1, download_id = $downloadId");
+		$this->db->query("INSERT INTO " . DB_PREFIX . "product_to_download SET extension_id = 1, download_id = $downloadId");
 	}
 
 	/**
@@ -103,7 +103,7 @@ class CatalogModelAccountDownloadTest extends OpenCartTest {
 			'shipping_code' => '',
 			'products' => array(
 				array(
-					'product_id' => 1,
+					'extension_id' => 1,
 					'name' => '',
 					'model' => '',
 					'quantity' => 0,

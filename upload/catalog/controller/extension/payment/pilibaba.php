@@ -43,8 +43,8 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 				'name'       => $product['name'],
 				'pictureUrl' => $this->config->get('config_url') . 'image/' . $product['image'],
 				'price'      => intval(round($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'), $this->session->data['currency']), 2) * 100),
-				'productUrl' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $product['product_id'])),
-				'productId'  => $product['product_id'],
+				'productUrl' => str_replace('&amp;', '&', $this->url->link('product/product', 'extension_id=' . $product['extension_id'])),
+				'productId'  => $product['extension_id'],
 				'quantity'   => $product['quantity'],
 				'weight'     => $weight
 			));
@@ -203,7 +203,7 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 					}
 
 					$order_data['products'][] = array(
-						'product_id' => $product['product_id'],
+						'extension_id' => $product['extension_id'],
 						'name'       => $product['name'],
 						'model'      => $product['model'],
 						'option'     => $option_data,
@@ -335,8 +335,8 @@ class ControllerExtensionPaymentPilibaba extends Controller {
 						'name'       => $product['name'],
 						'pictureUrl' => $this->config->get('config_url') . 'image/' . $product['image'],
 						'price'      => intval(round($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'), $this->session->data['currency']), 2) * 100),
-						'productUrl' => str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $product['product_id'])),
-						'productId'  => $product['product_id'],
+						'productUrl' => str_replace('&amp;', '&', $this->url->link('product/product', 'extension_id=' . $product['extension_id'])),
+						'productId'  => $product['extension_id'],
 						'quantity'   => $product['quantity'],
 						'weight'     => $weight
 					));

@@ -98,7 +98,7 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         $order_products = $this->model_checkout_order->getOrderProducts($order_info['order_id']);
 
         foreach ($order_products as &$order_product) {
-            $order_product['option'] = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_product_id']);
+            $order_product['option'] = $this->model_checkout_order->getOrderOptions($order_info['order_id'], $order_product['order_extension_id']);
         }
 
         $purchase_data = array(
@@ -253,13 +253,13 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
         }
 
         // If we do not know the viewed product, do nothing
-        if (!isset($this->request->get['product_id']) || !isset($this->request->get['route']) || $this->request->get['route'] != 'product/product') {
+        if (!isset($this->request->get['extension_id']) || !isset($this->request->get['route']) || $this->request->get['route'] != 'product/product') {
             return;
         }
 
         $this->load->model('catalog/product');
 
-        $product_info = $this->model_catalog_product->getProduct((int)$this->request->get['product_id']);
+        $product_info = $this->model_catalog_product->getProduct((int)$this->request->get['extension_id']);
 
         // If product does not exist, do nothing
         if (!$product_info) {
@@ -276,9 +276,9 @@ class ControllerExtensionAdvertiseGoogle extends Controller {
 
         $this->load->model('extension/advertise/google');
 
-        $category_name = $this->model_extension_advertise_google->getHumanReadableCategory($product_info['product_id'], $this->store_id);
+        $category_name = $this->model_extension_advertise_google->getHumanReadableCategory($product_info['extension_id'], $this->store_id);
 
-        $option_map = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['product_id'], $this->store_id);
+        $option_map = $this->model_extension_advertise_google->getSizeAndColorOptionMap($product_info['extension_id'], $this->store_id);
 
         $data = array();
         $data['send_to'] = $this->googleshopping->getEventSnippetSendTo();

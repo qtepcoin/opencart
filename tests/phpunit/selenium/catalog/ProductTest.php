@@ -25,11 +25,11 @@ class CatalogProductTest extends OpenCartSeleniumTest {
 		}, 3000);
 		
 		$element = $this->byCssSelector('div.caption a');
-		$this->assertTrue(strpos($element->attribute('href'), 'product_id=42') !== False);
+		$this->assertTrue(strpos($element->attribute('href'), 'extension_id=42') !== False);
 	}
 	
 	public function testAddToCartButton() {
-		$this->url('index.php?route=product/product&product_id=43');
+		$this->url('index.php?route=product/product&extension_id=43');
 		$this->clickOnElement('button-cart');
 
 		$this->url('index.php?route=checkout/cart');
@@ -38,7 +38,7 @@ class CatalogProductTest extends OpenCartSeleniumTest {
 	}
 	
 	public function testQuantityField() {
-		$this->url('index.php?route=product/product&product_id=43');
+		$this->url('index.php?route=product/product&extension_id=43');
 		$inputElement = $this->byId('input-quantity');
 		$inputElement->clear();
 		
@@ -53,7 +53,7 @@ class CatalogProductTest extends OpenCartSeleniumTest {
 	}
 	
 	public function testWishListButton() {
-		$this->url('index.php?route=product/product&product_id=43');
+		$this->url('index.php?route=product/product&extension_id=43');
 		$element = $this->byCssSelector('i.fa-heart:last-child');
 		$element->click();
 	
@@ -65,7 +65,7 @@ class CatalogProductTest extends OpenCartSeleniumTest {
 	}
 	
 	public function testCompareButton() {
-		$this->url('index.php?route=product/product&product_id=43');
+		$this->url('index.php?route=product/product&extension_id=43');
 		$element = $this->byCssSelector('i.fa-exchange');
 		$element->click();
 	

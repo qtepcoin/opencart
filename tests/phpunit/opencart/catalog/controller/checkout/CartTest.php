@@ -10,7 +10,7 @@ class CatalogControllerCheckoutCartTest extends OpenCartTest {
 	}
 
 	public function testAddProduct() {
-		$this->request->post['product_id'] = 28;
+		$this->request->post['extension_id'] = 28;
 		$this->request->post['quantity'] = 1;
 
 		$response = json_decode($this->dispatchAction("checkout/cart/add")->getOutput(), true);

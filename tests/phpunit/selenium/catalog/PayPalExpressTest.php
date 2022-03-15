@@ -137,7 +137,7 @@ class CatalogPayPalExpressTest extends OpenCartSeleniumTest {
 	}
 
 	public function testOneProduct() {
-		$this->url('index.php?route=product/product&product_id=43');
+		$this->url('index.php?route=product/product&extension_id=43');
 		$this->clickOnElement('button-cart');
 
 		$this->url('index.php?route=checkout/cart');

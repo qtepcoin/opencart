@@ -56,7 +56,7 @@ class ControllerAccountWishList extends Controller {
 		$results = $this->model_account_wishlist->getWishlist();
 
 		foreach ($results as $result) {
-			$product_info = $this->model_catalog_product->getProduct($result['product_id']);
+			$product_info = $this->model_catalog_product->getProduct($result['extension_id']);
 
 			if ($product_info) {
 				if ($product_info['image']) {
@@ -86,18 +86,18 @@ class ControllerAccountWishList extends Controller {
 				}
 
 				$data['products'][] = array(
-					'product_id' => $product_info['product_id'],
+					'extension_id' => $product_info['extension_id'],
 					'thumb'      => $image,
 					'name'       => $product_info['name'],
 					'model'      => $product_info['model'],
 					'stock'      => $stock,
 					'price'      => $price,
 					'special'    => $special,
-					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
-					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+					'href'       => $this->url->link('product/product', 'extension_id=' . $product_info['extension_id']),
+					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['extension_id'])
 				);
 			} else {
-				$this->model_account_wishlist->deleteWishlist($result['product_id']);
+				$this->model_account_wishlist->deleteWishlist($result['extension_id']);
 			}
 		}
 
@@ -118,24 +118,24 @@ class ControllerAccountWishList extends Controller {
 
 		$json = array();
 
-		if (isset($this->request->post['product_id'])) {
-			$product_id = $this->request->post['product_id'];
+		if (isset($this->request->post['extension_id'])) {
+			$extension_id = $this->request->post['extension_id'];
 		} else {
-			$product_id = 0;
+			$extension_id = 0;
 		}
 
 		$this->load->model('catalog/product');
 
-		$product_info = $this->model_catalog_product->getProduct($product_id);
+		$product_info = $this->model_catalog_product->getProduct($extension_id);
 
 		if ($product_info) {
 			if ($this->customer->isLogged()) {
 				// Edit customers cart
 				$this->load->model('account/wishlist');
 
-				$this->model_account_wishlist->addWishlist($this->request->post['product_id']);
+				$this->model_account_wishlist->addWishlist($this->request->post['extension_id']);
 
-				$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
+				$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'extension_id=' . (int)$this->request->post['extension_id']), $product_info['name'], $this->url->link('account/wishlist'));
 
 				$json['total'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());
 			} else {
@@ -143,11 +143,11 @@ class ControllerAccountWishList extends Controller {
 					$this->session->data['wishlist'] = array();
 				}
 
-				$this->session->data['wishlist'][] = $this->request->post['product_id'];
+				$this->session->data['wishlist'][] = $this->request->post['extension_id'];
 
 				$this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
 
-				$json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
+				$json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true), $this->url->link('product/product', 'extension_id=' . (int)$this->request->post['extension_id']), $product_info['name'], $this->url->link('account/wishlist'));
 
 				$json['total'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
 			}

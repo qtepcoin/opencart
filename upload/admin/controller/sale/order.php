@@ -517,10 +517,10 @@ class ControllerSaleOrder extends Controller {
 
 			foreach ($products as $product) {
 				$data['order_products'][] = array(
-					'product_id' => $product['product_id'],
+					'extension_id' => $product['extension_id'],
 					'name'       => $product['name'],
 					'model'      => $product['model'],
-					'option'     => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']),
+					'option'     => $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_extension_id']),
 					'quantity'   => $product['quantity'],
 					'price'      => $product['price'],
 					'total'      => $product['total'],
@@ -938,7 +938,7 @@ class ControllerSaleOrder extends Controller {
 			foreach ($products as $product) {
 				$option_data = array();
 
-				$options = $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_product_id']);
+				$options = $this->model_sale_order->getOrderOptions($this->request->get['order_id'], $product['order_extension_id']);
 
 				foreach ($options as $option) {
 					if ($option['type'] != 'file') {
@@ -962,15 +962,15 @@ class ControllerSaleOrder extends Controller {
 				}
 
 				$data['products'][] = array(
-					'order_product_id' => $product['order_product_id'],
-					'product_id'       => $product['product_id'],
+					'order_extension_id' => $product['order_extension_id'],
+					'extension_id'       => $product['extension_id'],
 					'name'    	 	   => $product['name'],
 					'model'    		   => $product['model'],
 					'option'   		   => $option_data,
 					'quantity'		   => $product['quantity'],
 					'price'    		   => $this->currency->format($product['price'] + ($this->config->get('config_tax') ? $product['tax'] : 0), $order_info['currency_code'], $order_info['currency_value']),
 					'total'    		   => $this->currency->format($product['total'] + ($this->config->get('config_tax') ? ($product['tax'] * $product['quantity']) : 0), $order_info['currency_code'], $order_info['currency_value']),
-					'href'     		   => $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product['product_id'], true)
+					'href'     		   => $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&extension_id=' . $product['extension_id'], true)
 				);
 			}
 
@@ -1618,7 +1618,7 @@ class ControllerSaleOrder extends Controller {
 				foreach ($products as $product) {
 					$option_data = array();
 
-					$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
+					$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_extension_id']);
 
 					foreach ($options as $option) {
 						if ($option['type'] != 'file') {
@@ -1794,12 +1794,12 @@ class ControllerSaleOrder extends Controller {
 				foreach ($products as $product) {
 					$option_weight = 0;
 
-					$product_info = $this->model_catalog_product->getProduct($product['product_id']);
+					$product_info = $this->model_catalog_product->getProduct($product['extension_id']);
 
 					if ($product_info) {
 						$option_data = array();
 
-						$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_product_id']);
+						$options = $this->model_sale_order->getOrderOptions($order_id, $product['order_extension_id']);
 
 						foreach ($options as $option) {
 							if ($option['type'] != 'file') {
@@ -1819,7 +1819,7 @@ class ControllerSaleOrder extends Controller {
 								'value' => $value
 							);
 
-							$product_option_value_info = $this->model_catalog_product->getProductOptionValue($product['product_id'], $option['product_option_value_id']);
+							$product_option_value_info = $this->model_catalog_product->getProductOptionValue($product['extension_id'], $option['product_option_value_id']);
 
 							if (!empty($product_option_value_info['weight'])) {
 								if ($product_option_value_info['weight_prefix'] == '+') {
